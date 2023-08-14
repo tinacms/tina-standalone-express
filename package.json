@@ -1,0 +1,40 @@
+{
+  "name": "tina-standalone",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "tinacms dev -c \"vite\"",
+    "express-dev": "tsx functions/graphql.ts",
+    "build": "tinacms build && tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@clerk/backend": "^0.27.0",
+    "@clerk/clerk-js": "^4.55.0",
+    "@tinacms/cli": "^0.0.0-20230725171356",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongodb-level": "^0.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tinacms": "^0.0.0-20230725171356",
+    "tinacms-gitprovider-github": "^0.0.0-20230725171356",
+    "ts-node": "^10.9.1",
+    "tsx": "^3.12.7",
+    "wrangler": "^3.4.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react-swc": "^3.3.2",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5"
+  }
+}
