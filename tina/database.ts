@@ -1,11 +1,13 @@
-import { createDatabase } from "@tinacms/datalayer";
+import { createDatabase, createLocalDatabase} from "@tinacms/datalayer";
 import { MongodbLevel } from "mongodb-level";
 import { GitHubProvider } from "tinacms-gitprovider-github";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-export default createDatabase({
+const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true"; 
+
+export default isLocal ? createLocalDatabase() : createDatabase({
   gitProvider: new GitHubProvider({
     branch: process.env.GITHUB_BRANCH!,
     owner: process.env.GITHUB_OWNER!,
