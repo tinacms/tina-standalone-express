@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
+    "11ty-dev": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c 'eleventy --input='site' --serve'",
     "dev": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c \"vite\"",
     "express-dev": "TINA_PUBLIC_IS_LOCAL=true tsx functions/graphql.ts",
     "build": "tinacms build && tsc && vite build",
@@ -29,6 +30,7 @@
     "wrangler": "^3.4.0"
   },
   "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",

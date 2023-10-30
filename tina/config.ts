@@ -23,7 +23,7 @@ export default defineConfig({
   }),
   build: {
     outputFolder: "admin",
-    publicFolder: "public",
+    publicFolder: "site",
   },
   media: {
     tina: {
@@ -34,9 +34,9 @@ export default defineConfig({
   schema: {
     collections: [
       {
-        name: "post",
-        label: "Posts",
-        path: "content/posts",
+        name: "pages",
+        label: "Pages",
+        path: "site",
         fields: [
           {
             type: "string",
