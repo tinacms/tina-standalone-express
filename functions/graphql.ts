@@ -30,7 +30,7 @@ const handler = TinaNodeBackend({
     ? LocalBackendAuthentication()
     : ClerkBackendAuthentication({
       secretKey,
-      allowList: ['logan@tina.io']
+      allowList: ['logan@forestry.io']
     }),
   databaseClient,
 })

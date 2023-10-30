@@ -19,7 +19,7 @@ export default defineConfig({
     : "https://my-hosted-server.com/graphql", // ensure this value is provided depending on your hosting solution 
   authProvider: isLocal ? new LocalAuthProvider() : new ClerkAuthProvider({
     clerk: new Clerk(clerkPubKey),
-    allowedList: ['logan@tina.io']
+    allowedList: ['logan@forestry.io']
   }),
   build: {
     outputFolder: "admin",
@@ -37,6 +37,11 @@ export default defineConfig({
         name: "pages",
         label: "Pages",
         path: "site",
+        ui: {
+          defaultItem: {
+            layout: 'layout',
+          },
+        },
         fields: [
           {
             type: "string",
@@ -44,6 +49,15 @@ export default defineConfig({
             label: "Title",
             isTitle: true,
             required: true,
+          },
+          {
+            type: "string",
+            name: 'layout',
+            label: 'Layout',
+            options: [
+              'layout',
+              // add more layouts here
+            ],
           },
           {
             type: "rich-text",
