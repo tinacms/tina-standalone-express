@@ -25,11 +25,7 @@ app.use(express.json());
 
 const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true'
 
-
-
-app.post("/api/tina/*", async (req, res) => {
-  console.log('post')
-  const handler = TinaNodeBackend({
+const tinaHandler = TinaNodeBackend({
     authentication: 
      isLocal ? LocalBackendAuthentication() : 
       ClerkBackendAuthentication({
@@ -37,8 +33,9 @@ app.post("/api/tina/*", async (req, res) => {
       }),
     databaseClient,
   })
-  console.log('handler', handler)
-  handler(req, res)
+
+app.post("/api/tina/*", async (req, res) => {
+    tinaHandler(req, res)
 });
 
 

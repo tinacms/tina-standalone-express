@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c 'eleventy --input='site' --serve'",
     "dev:prod": "TINA_PUBLIC_IS_LOCAL=true tinacms dev -c 'eleventy --input='site' --serve'",
-    "express-dev": "TINA_PUBLIC_IS_LOCAL=true tsx functions/graphql.ts",
+    "express-dev": "TINA_PUBLIC_IS_LOCAL=true tsx express-backend/index.ts",
     "build": "tinacms build --local --skip-cloud-checks && tsc && eleventy --input='site'",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
+    "@types/express": "^4.17.20",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
