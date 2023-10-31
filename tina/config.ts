@@ -14,9 +14,7 @@ const clerkPubKey = process.env.TINA_PUBLIC_CLERK_PUBLIC_KEY!;
 const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
 
 export default defineConfig({
-  contentApiUrlOverride: isLocal
-    ? "http://localhost:3000/api/tina/gql"
-    : "https://my-hosted-server.com/graphql", // ensure this value is provided depending on your hosting solution 
+  contentApiUrlOverride: '/api/tina/gql', // ensure this value is provided depending on your hosting solution 
   authProvider: isLocal ? new LocalAuthProvider() : new ClerkAuthProvider({
     clerk: new Clerk(clerkPubKey),
     allowedList: ['logan@forestry.io']

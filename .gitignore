@@ -28,3 +28,6 @@ public/admin
 
 site/admin
 _site
+
+# Local Netlify folder
+.netlify

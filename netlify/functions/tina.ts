@@ -1,10 +1,11 @@
 import express from "express";
+import ServerlessHttp from 'serverless-http'
 import { TinaNodeBackend, LocalBackendAuthentication } from '@tinacms/datalayer'
 import { ClerkBackendAuthentication } from 'tinacms-clerk'
 import cors from "cors";
 import dotenv from "dotenv";
 
-import { databaseClient } from "../tina/__generated__/databaseClient";
+import { databaseClient } from "../../tina/__generated__/databaseClient";
 
 dotenv.config();
 
@@ -15,7 +16,6 @@ dotenv.config();
  */
 
 const app = express();
-const port = 3000;
 
 const secretKey = process.env.CLERK_SECRET!;
 
@@ -25,20 +25,21 @@ app.use(express.json());
 
 const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true'
 
-const handler = TinaNodeBackend({
-  authentication: isLocal
-    ? LocalBackendAuthentication()
-    : ClerkBackendAuthentication({
-      secretKey,
-      allowList: ['logan@forestry.io']
-    }),
-  databaseClient,
-})
+
 
 app.post("/api/tina/*", async (req, res) => {
-  return await handler(req, res)
+  console.log('post')
+  const handler = TinaNodeBackend({
+    authentication: 
+     isLocal ? LocalBackendAuthentication() : 
+      ClerkBackendAuthentication({
+        secretKey,
+      }),
+    databaseClient,
+  })
+  console.log('handler', handler)
+  handler(req, res)
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+
+export const handler = ServerlessHttp(app)
