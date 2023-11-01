@@ -37,9 +37,11 @@ const tinaBackend = TinaNodeBackend({
 });
 
 const handleTina: RequestHandler = async (req, res) => {
+  const routes = req.params[0].split("/");
+  console.log("routes", routes);
   req.query = {
     ...(req.query || {}),
-    routes: req.params[0].split("/"),
+    routes,
   };
 
   await tinaBackend(req, res);
@@ -47,14 +49,12 @@ const handleTina: RequestHandler = async (req, res) => {
 
 app.post("/api/tina/*", async (req, res, next) => {
   console.log("Post from Tina");
-  console.log(req.params[0]);
   // Modify request if needed
   handleTina(req, res, next);
 });
 
 app.get("/api/tina/*", async (req, res, next) => {
   console.log("Get from Tina");
-  console.log(req.params[0]);
   // Modify request if needed
   handleTina(req, res, next);
 });
