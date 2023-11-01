@@ -7,7 +7,7 @@
     "dev:prod": "TINA_PUBLIC_IS_LOCAL=false tinacms dev -c 'eleventy --input='site' --serve'",
     "express-dev": "TINA_PUBLIC_IS_LOCAL=true tsx express-backend/index.ts",
     "express:prod": "TINA_PUBLIC_IS_LOCAL=false tsx express-backend/index.ts",
-    "build": "tinacms build && eleventy --input='site'",
+    "build": "tinacms build --verbose && eleventy --input='site'",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
