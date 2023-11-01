@@ -1,7 +1,12 @@
 import express from "express";
-import ServerlessHttp from 'serverless-http'
-import { TinaNodeBackend, LocalBackendAuthentication } from '@tinacms/datalayer'
-import { ClerkBackendAuthentication } from 'tinacms-clerk'
+import type { RequestHandler } from "express";
+import cookieParser from "cookie-parser";
+import ServerlessHttp from "serverless-http";
+import {
+  TinaNodeBackend,
+  LocalBackendAuthentication,
+} from "@tinacms/datalayer";
+import { AuthJsBackendAuthentication, TinaAuthJSOptions } from "tinacms-authjs";
 import cors from "cors";
 import dotenv from "dotenv";
 
@@ -9,34 +14,49 @@ import { databaseClient } from "../../tina/__generated__/databaseClient";
 
 dotenv.config();
 
-
-/**
- * For premium Clerk users, you can use restrictions
- * https://clerk.com/docs/authentication/allowlist
- */
-
 const app = express();
 
-const secretKey = process.env.CLERK_SECRET!;
-
-
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
-const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === 'true'
+const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
 
-const tinaHandler = TinaNodeBackend({
-    authentication: 
-     isLocal ? LocalBackendAuthentication() : 
-      ClerkBackendAuthentication({
-        secretKey,
+const tinaBackend = TinaNodeBackend({
+  authentication: isLocal
+    ? LocalBackendAuthentication()
+    : AuthJsBackendAuthentication({
+        authOptions: TinaAuthJSOptions({
+          databaseClient,
+          secret: process.env.NEXTAUTH_SECRET!,
+          debug: true,
+        }),
       }),
-    databaseClient,
-  })
-
-app.post("/api/tina/*", async (req, res) => {
-    tinaHandler(req, res)
+  databaseClient,
 });
 
+const handleTina: RequestHandler = async (req, res) => {
+  req.query = {
+    ...(req.query || {}),
+    routes: req.params[0].split("/"),
+  };
 
-export const handler = ServerlessHttp(app)
+  await tinaBackend(req, res);
+};
+
+app.post("/api/tina/*", async (req, res, next) => {
+  console.log("Post from Tina");
+  console.log(req.params[0]);
+  // Modify request if needed
+  handleTina(req, res, next);
+});
+
+app.get("/api/tina/*", async (req, res, next) => {
+  console.log("Get from Tina");
+  console.log(req.params[0]);
+  // Modify request if needed
+  handleTina(req, res, next);
+});
+
+export const handler = ServerlessHttp(app);

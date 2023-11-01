@@ -5,6 +5,7 @@
   from = "/api/tina/*"
   to = "/.netlify/functions/tina"
   status = 200
+  force = true
 
 [dev]
   command = "npm run dev"
