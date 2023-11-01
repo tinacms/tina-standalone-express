@@ -34,7 +34,7 @@ const config = defineConfig({
   authProvider: isLocal ? new LocalAuthProvider() : new Foo(),
   build: {
     outputFolder: "admin",
-    publicFolder: "site",
+    publicFolder: "_site",
   },
   media: {
     tina: {
