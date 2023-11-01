@@ -5,22 +5,9 @@ import {
   UsernamePasswordAuthJSProvider,
 } from "tinacms-authjs/dist/tinacms";
 
-import { SessionProvider } from "next-auth/react";
-/**
- * For premium Clerk users, you can use restrictions
- * https://clerk.com/docs/authentication/allowlist
- */
-
-// class Foo extends UsernamePasswordAuthJSProvider {
-//   getSessionProvider() {
-//     return (props) => {
-//       console.log(process.env.NEXTAUTH_URL);
-//       return <SessionProvider {...props}>{props.children}</SessionProvider>;
-//     };
-//   }
-// }
-
 const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
+
+console.log("isLocalConfigFile", isLocal);
 
 const config = defineConfig({
   contentApiUrlOverride: "/api/tina/gql", // ensure this value is provided depending on your hosting solution

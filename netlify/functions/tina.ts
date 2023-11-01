@@ -12,6 +12,8 @@ import dotenv from "dotenv";
 
 import { databaseClient } from "../../tina/__generated__/databaseClient";
 
+console.log({ databaseClient });
+
 dotenv.config();
 
 const app = express();
@@ -22,6 +24,8 @@ app.use(express.json());
 app.use(cookieParser());
 
 const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
+
+console.log("isLocalBackendFunction", isLocal);
 
 const tinaBackend = TinaNodeBackend({
   authentication: isLocal

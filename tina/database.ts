@@ -7,6 +7,8 @@ dotenv.config();
 
 const isLocal = process.env.TINA_PUBLIC_IS_LOCAL === "true";
 
+console.log("isLocal", isLocal);
+
 export default isLocal
   ? createLocalDatabase()
   : createDatabase({
