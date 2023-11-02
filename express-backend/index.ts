@@ -13,7 +13,6 @@ import { databaseClient } from "../tina/__generated__/databaseClient";
 
 dotenv.config();
 
-console.log(process.env.NEXTAUTH_URL, process.env.NEXTAUTH_SECRET);
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -33,7 +32,6 @@ const handler = TinaNodeBackend({
         authOptions: TinaAuthJSOptions({
           databaseClient,
           secret: process.env.NEXTAUTH_SECRET!,
-          debug: true,
         }),
       }),
   databaseClient,
