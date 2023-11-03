@@ -1,6 +1,5 @@
 [functions]
   node_bundler = "esbuild"
-  included_files = ["tina/database", "tina/generated/*" ]
 
 [[redirects]]
   from = "/api/tina/*"
